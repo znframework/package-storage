@@ -65,7 +65,8 @@ class Cookie implements CookieInterface, SessionCookieCommonInterface
     {
         Session::start();
 
-        $this->config = $config ?: Config::default(new CookieDefaultConfiguration)::get('Storage', 'cookie');
+        $this->config = $config ?: Config::default('ZN\Storage\CookieDefaultConfiguration')
+                                         ::get('Storage', 'cookie');
     }
 
     /**
