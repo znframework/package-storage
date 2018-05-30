@@ -27,12 +27,12 @@ Basic level usage is shown below.
 
 ZN\ZN::run();
 
-Session::insert('example', 'Example Data');
+Session::example('Example Data');
 
 echo Session::example();
 ```
 ```php
-Cookie::insert('example', 'Example Data');
+Cookie::example('Example Data');
 
 echo Cookie::example();
 ```
