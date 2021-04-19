@@ -142,9 +142,10 @@ class Cookie implements CookieInterface, StorageInterface
 
         if( ! is_scalar($value) )
         {
-            $value = json_encode($value);
+            $value = Json::encode($value);
         }
-
+        
+        // @codeCoverageIgnoreStart
         if( setcookie($name, $value, time() + $this->time, $this->path, $this->domain, $this->secure, $this->httpOnly) )
         {
             $this->regenerateSessionId();
@@ -153,6 +154,7 @@ class Cookie implements CookieInterface, StorageInterface
 
             return true;
         }
+        // @codeCoverageIgnoreEnd
         else
         {
             throw new SetcookieException;
@@ -249,7 +251,7 @@ class Cookie implements CookieInterface, StorageInterface
         }
         else
         {
-            return false;
+            return false; // @codeCoverageIgnore
         }
 
         return true;
@@ -283,15 +285,13 @@ class Cookie implements CookieInterface, StorageInterface
      */
     protected function getScalarCookieContentByName($name)
     {
-        return ! Json::check($_COOKIE[$name]) ? $_COOKIE[$name] : json_decode($_COOKIE[$name], true);
+        return is_string($_COOKIE[$name]) && Json::check($_COOKIE[$name]) ? Json::decodeArray($_COOKIE[$name]) : $_COOKIE[$name];
     }
 
     /**
      * Default Cookie Variable
      * 
-     * @param void
-     * 
-     * @return void
+     * @codeCoverageIgnore
      */
     protected function cookieDefaultVariable()
     {
