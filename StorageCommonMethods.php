@@ -179,7 +179,7 @@ trait StorageCommonMethods
     {
         if( ($encode = $this->config['encode']) === true )
         {
-            $name = md5($name);
+            $name = md5($name); // @codeCoverageIgnore
         }
         elseif( is_string($encode) )
         {
@@ -218,8 +218,6 @@ trait StorageCommonMethods
      */
     protected function defaultVariable()
     {
-        $this->name       = NULL;
-        $this->value      = NULL;
         $this->encode     = [];
         $this->regenerate = true;
     }
